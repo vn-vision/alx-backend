@@ -20,10 +20,10 @@ def index_range(page: int, page_size: int) -> Tuple[int,  int]:
 
     # if a single page has n page size, its index range is n
     # n * page number gives you the last index
-    
+
     end_index = page * page_size
     start_index = end_index - page_size
-    
+
     res = (int(start_index), int(end_index))
     return res
 
@@ -56,12 +56,12 @@ class Server:
         assert type(page_size) == int and page_size > 0
 
         index = index_range(page, page_size)
-        start_ind  = index[0]
+        start_ind = index[0]
         end_ind = index[1]
-        data = self.dataset();
+        data = self.dataset()
         datasize = int(len(data))
 
-        if start_ind >datasize:
+        if start_ind > datasize:
             return []
         if end_ind > datasize:
             return data[start_ind:]
