@@ -30,7 +30,7 @@ class MRUCache(BaseCaching):
 
         # check if the cache exceed limit and remove the most recently used
 
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             most = max(self.cached_at, key=self.cached_at.get)
             del self.cache_data[most]
             del self.cached_at[most]
@@ -45,6 +45,7 @@ class MRUCache(BaseCaching):
         get item associated with key
         """
         if key and key in self.cache_data.keys():
+            self.cached_at[key] = datetime.utcnow()
             return self.cache_data[key]
 
         return None
