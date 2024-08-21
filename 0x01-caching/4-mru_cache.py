@@ -28,17 +28,17 @@ class MRUCache(BaseCaching):
         if key is None or item is None:
             return
 
-        self.cache_data[key] = item
-        self.cached_at[key] = datetime.utcnow()
-
         # check if the cache exceed limit and remove the most recently used
-        most = max(self.cached_at, key=self.cached_at.get)
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            most = max(self.cached_at, key=self.cached_at.get)
             del self.cache_data[most]
             del self.cached_at[most]
 
             print(f"DISCARD: {most}")
+
+        self.cache_data[key] = item
+        self.cached_at[key] = datetime.utcnow()
 
     def get(self, key):
         """
@@ -46,5 +46,5 @@ class MRUCache(BaseCaching):
         """
         if key and key in self.cache_data.keys():
             return self.cache_data[key]
- 
+
         return None

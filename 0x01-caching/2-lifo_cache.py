@@ -30,16 +30,16 @@ class LIFOCache(BaseCaching):
         if key is None or item is None:
             return
 
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            newest = self.cache_order.pop()
+            del self.cache_data[newest]
+            print(f"DISCARD: {newest}")
+
         if key in self.cache_data:
             self.cache_order.remove(key)
 
         self.cache_data[key] = item
         self.cache_order.append(key)
-
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            newest = self.cache_order.pop()
-            del self.cache_data[newest]
-            print(f"DISCARD: {newest}")
 
     def get(self, key):
         """

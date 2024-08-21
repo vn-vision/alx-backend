@@ -45,6 +45,7 @@ class LRUCache(BaseCaching):
         get item associated with key
         """
         if key and key in self.cache_data.keys():
+            self.cached_at[key] = datetime.utcnow()
             return self.cache_data[key]
 
         return None
