@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale }}">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ _('home_title') }}</title>
+	</head>
+	<body>
+		<!--
+			Place holder for the greeting text
+			It can be translated based on the users locale
+		-->
+		<h1>{{ _('home_header') }}</h1>
+
+		<!-- if user exists, get their name -->
+		{% if g.user %}
+		<p>{{ _('logged_in_as', username=g.user['name'])}}</p>
+		{% else %}
+		<p>{{_('not_logged_in')}}</p>
+		{% endif %}
+	</body>
+</html>
